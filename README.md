@@ -28,10 +28,10 @@ Linux & macOS
    * `cmake ..`
    * `make`
 
-## Build RPM
+### Build RPM
 
    * `cmake .`
-   * make package
+   * `make package`
 
 
 ERIKA Enterprise RTOS
