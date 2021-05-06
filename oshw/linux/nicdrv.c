@@ -30,6 +30,8 @@
  * This layer if fully transparent for the higher layers.
  */
 
+#define __USE_UNIX98
+
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <net/if.h>
