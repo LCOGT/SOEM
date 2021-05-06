@@ -30,7 +30,6 @@
  * This layer if fully transparent for the higher layers.
  */
 
-#define __USE_UNIX98
 
 #include <sys/types.h>
 #include <sys/ioctl.h>
@@ -44,6 +43,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <netpacket/packet.h>
+#define __USE_UNIX98
 #include <pthread.h>
 
 #include "oshw.h"
