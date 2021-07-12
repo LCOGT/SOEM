@@ -33,6 +33,12 @@ Linux & macOS
    * `cmake .`
    * `make package`
 
+### Deploy RPM
+
+* Find 32 bit soem rpm path in build output from [buildcentos6-32](http://buildsba:8080/job/soem-library/label=buildcentos6-32/) or [buildcentos7-64](http://buildsba:8080/job/soem-library/label=buildcentos7-64/).
+* scp rpm file to fsfs:/data/repos/lcogt/6 and fsfs:/data/repos/lcogt/7 (as root)
+* run lcogt.bash script in fsfs:/data/repos to add to yum (as root)
+
 
 ERIKA Enterprise RTOS
 ---------------------
