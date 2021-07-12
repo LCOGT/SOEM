@@ -15,6 +15,8 @@ endif()
 set(SOEM_INCLUDE_INSTALL_DIR include/soem)
 set(SOEM_LIB_INSTALL_DIR lib)
 
+set(CMAKE_SYSTEM_PROCESSOR i686)
+
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
   set(BUILD_TESTS TRUE)
 else()
@@ -35,7 +37,7 @@ if(WIN32)
   set(OS_LIBS wpcap.lib Packet.lib Ws2_32.lib Winmm.lib)
 elseif(UNIX AND NOT APPLE)
   set(OS "linux")
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror -m32")
   set(OS_LIBS pthread rt)
 elseif(APPLE)
   # This must come *before* linux or MacOSX will identify as Unix.
@@ -108,7 +110,7 @@ install(FILES
   DESTINATION ${SOEM_INCLUDE_INSTALL_DIR})
 
  
-set(VERSION "1.4.0")
+set(VERSION "1.4.1")
 set(CPACK_PACKAGE_VERSION ${VERSION})
 set(CPACK_GENERATOR "RPM")
 set(CMAKE_INSTALL_PREFIX "/usr")
