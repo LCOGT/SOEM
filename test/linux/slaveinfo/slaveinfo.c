@@ -104,7 +104,7 @@ char* dtype2string(uint16 dtype)
     return hstr;
 }
 
-char* SDO2string(uint16 slave, uint16 index, uint8 subidx, uint16 dtype)
+char* SDO2string(uint16 slave, uint16 index, uint8 subidx, uint16 dtype, uint16 bitlen)
 {
    int l = sizeof(usdo) - 1, i;
    uint8 *u8;
@@ -199,7 +199,28 @@ char* SDO2string(uint16 slave, uint16 index, uint8 subidx, uint16 dtype)
             }
             break;
          default:
-            sprintf(hstr, "Unknown type");
+            switch(bitlen)
+            {
+               case 8:
+                  u8 = (uint8*) &usdo[0];
+                  sprintf(hstr, "0x%2.2x %u", *u8, *u8);
+                  break;
+               case 16:
+                  u16 = (uint16*) &usdo[0];
+                  sprintf(hstr, "0x%4.4x %u", *u16, *u16);
+                  break;
+               case 24:
+               case 32:
+                  u32 = (uint32*) &usdo[0];
+                  sprintf(hstr, "0x%8.8x %u", *u32, *u32);
+                  break;
+               case 64:
+                  u64 = (uint64*) &usdo[0];
+                  sprintf(hstr, "0x%16.16"PRIx64" %"PRIu64, *u64, *u64);
+                  break;
+               default:
+                  sprintf(hstr, "Unknown type");
+            }
       }
       return hstr;
    }
@@ -493,7 +514,7 @@ void si_sdo(int cnt)
                         j, OElist.DataType[j], OElist.BitLength[j], OElist.ObjAccess[j], OElist.Name[j]);
                     if ((OElist.ObjAccess[j] & 0x0007))
                     {
-                        printf("          Value :%s\n", SDO2string(cnt, ODlist.Index[i], j, OElist.DataType[j]));
+                        printf("          Value :%s\n", SDO2string(cnt, ODlist.Index[i], j, OElist.DataType[j], OElist.BitLength[j]));
                     }
                 }
             }
