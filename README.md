@@ -11,6 +11,42 @@ Prerequisites for all platforms
  * CMake 2.8.0 or later
 
 
+Linux
+--------------
+
+### Build RPM
+
+   * `cmake .`
+   * `make package`
+
+### Use the buildenv project to build for a target host
+
+The [buildenv](https://github.com/LCOGT/buildenv) project provides wrappers around jenkins build swarm nodes allowing a developer to test compilations
+or to build one-off projects such as an RPM for a target machine.
+
+Steps:
+* check out buildenv
+* build your target environment
+* build artefact for target
+
+So to build the soem rpm for rocky 8:
+
+```console
+$ cd ~/
+$ git clone git@github.com:LCOGT/buildenv.git
+$ cd buildenv
+$ ./makeenv r8
+$ cd ~/workspace/SOEM
+$ cmake . && make package
+```
+
+### Deploy RPM
+
+* Find soem rpm path you have built.
+* scp rpm file as root to the relevant repo, e.g. for rocky8 fsfs:/data/repos/lcogt/8
+* run lcogt.bash script in fsfs:/data/repos to add to yum (as root)
+
+
 Windows (Visual Studio)
 -----------------------
 
@@ -19,27 +55,7 @@ Windows (Visual Studio)
    * `cd build`
    * `cmake .. -G "NMake Makefiles"`
    * `nmake`
-
-Linux & macOS
---------------
-
-   * `mkdir build`
-   * `cd build`
-   * `cmake ..`
-   * `make`
-
-### Build RPM
-
-   * `cmake .`
-   * `make package`
-
-### Deploy RPM
-
-* Find 32 bit soem rpm path in build output from [buildcentos6-32](http://buildsba:8080/job/soem-library/label=buildcentos6-32/) or [buildcentos7-64](http://buildsba:8080/job/soem-library/label=buildcentos7-64/).
-* scp rpm file to fsfs:/data/repos/lcogt/6 and fsfs:/data/repos/lcogt/7 (as root)
-* run lcogt.bash script in fsfs:/data/repos to add to yum (as root)
-
-
+   
 ERIKA Enterprise RTOS
 ---------------------
 
